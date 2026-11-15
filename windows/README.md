@@ -1,75 +1,119 @@
-# Game Guide Library for Windows — Phase 1
+# Game Guide Library for Windows — Phase 1 + IGN Phases 2–3
 
-A standalone Windows frontend for selecting games, browsing Game Twin's bundled directory of walkthroughs, maps and other guide resources, and reading the original websites in an embedded browser. It does **not** require a running game, an emulator, or any Android software.
+A standalone Windows guide browser and local archive application. The Android project is unchanged.
 
-## What works
+## Feature coverage
 
-- Add, select and remove game titles. Titles are stored in %LOCALAPPDATA%\GameTwinGuideLibrary\games.json.
-- Discover matching entries from the bundled GameFAQs, StrategyWiki, Steam, VGMaps and curated-series catalogs.
-- Open quick shortcuts for IGN, GameFAQs, Neoseeker, Steam guides and PDF game-manual searches.
-- **Browse all 8,130 indexed resources** independently of any selected game, with source filters, keyword search, record counts and 200-record pages.
-- Open any original resource URL in an embedded Microsoft Edge WebView2 browser, with Back, Forward, Refresh, address bar and Open Externally.
-- Browse the 106 Game Twin code-wheel entries, each linked to its original Internet Archive ZIP download.
+### Phase 1 — browse sources
 
-### What's actually bundled?
+- Add/select/remove game names; saved in %LOCALAPPDATA%\GameTwinGuideLibrary\games.json.
+- Browse Game Twin's **8,130 index records**: GameFAQs (2,938), StrategyWiki (1,473), VGMaps (3,481), Steam (46), curated series (86), Internet Archive code-wheel ZIPs (106).
+- Search by source and title, inspect original URLs and browse them in Edge WebView2.
+- Open IGN, GameFAQs, Neoseeker, Steam, and game-manual shortcuts.
 
-The original Android project's JSON assets contain **catalog/index entries, not the guide text or images**. This Windows project reuses those original JSON files at build time:
+The Android catalogs contain only **titles and links, not guide content**.
 
-| Catalog | Indexed resources |
-| --- | ---: |
-| GameFAQs | 2,938 |
-| StrategyWiki | 1,473 |
-| VGMaps | 3,481 |
-| Steam Community | 46 |
-| Code wheels | 106 |
-| Curated series | 75 walkthroughs + 11 map links |
-| **Total** | **8,130** |
+### Phase 2 — save an IGN article
 
-The curated-series JSON under GameTwinGuideLibrary.Core/Catalogs is generated from the original app/src/main/java/com/twinlore/app/data/GuideSeriesCatalog.kt. To refresh it after the Android source changes:
+1. Open an IGN wiki page in the built-in browser, for example https://www.ign.com/wikis/cyberpunk-2077.
+2. Complete any normal publisher consent flow if it appears.
+3. Choose **Save IGN page** above the browser.
+4. Open the **Saved IGN** tab and choose **Read offline**.
 
-    python windows/tools/generate_series_catalog.py
+The app scrolls to trigger lazy image loading, waits for image completion,
+and uses Chromium DevTools Page.captureSnapshot to create one MHTML
+archive. It records the page URL, title, file size and best-effort image
+diagnostics.
 
-### Not implemented yet
+### Phase 3 — archive selected IGN sidebar pages
 
-**Offline saving is not part of Phase 1.** The guide browser opens the original pages online, and a website's normal browser download links may download files. There is no Save page, MHTML archiver, Save all chapters operation, offline reader or locally downloaded guide collection yet. Those belong to Phases 2–4. The only locally stored user data in Phase 1 is the game-name list.
+1. Open an IGN wiki page, preferably its landing page.
+2. Click **Discover IGN sidebar**.
+3. Use the **IGN sidebar** tab to browse its hierarchical page list,
+   filter by category, search article names, and choose Select all,
+   Select visible, or individual checkboxes.
+4. Choose **Archive selected IGN pages**. Large batches require confirmation.
+5. Monitor progress; press Cancel to stop after the current operation.
+6. Open the **Saved IGN** tab to view completed articles, image warnings,
+   original sources, and saved files.
 
-A catalog record is not a guarantee that the publisher's URL remains live. IGN links are generated from game-title slugs and may need correcting via site search. Game-match suggestions are advisory and may miss alternate regional titles.
+**Page discovery is not recursive.** The app reads IGN's embedded
+Next.js JSON field props.pageProps.page.navigation. In a Cyberpunk 2077
+HTML sample it represented roughly 600 distinct wiki page URLs including
+the landing page. IGN can change this format and other wikis may differ.
 
-## Build on Windows
+**Resume/retry:** Each wiki has its own manifest.json. Successful pages
+are skipped on repeat runs, failed pages are recorded, and cancellation
+keeps completed work. Retry by selecting failed pages again. Visits are
+sequential with a short delay; no CAPTCHA or access bypass is attempted.
 
-Requirements:
-- Windows 10/11 x64.
-- .NET 10 SDK (for building); .NET 10 Desktop Runtime if running a framework-dependent build.
-- Microsoft Edge WebView2 Runtime (usually installed on supported Windows systems).
+**Offline mode:** Saved .mhtml files open in WebView2. The app disables
+scripts and blocks HTTP(S) requests while reading offline. Links to
+other saved IGN articles redirect to their local MHTML copies; unsaved
+links are blocked. Use Open source to return online. Standalone MHTML
+files can always be inspected with Show in folder.
 
-From the repository root:
+## Storage
+
+Default archive location:
+
+    %USERPROFILE%\Documents\Game Guide Library\IGN\<wiki-slug>\
+
+Every wiki directory has a manifest.json and one .mhtml per successfully
+captured page. SHA-256 URL hashes avoid filename collisions. The files
+can be copied or backed up independently of the app.
+
+**Limit:** MHTML preserves loaded HTML, images, styles and other
+resources. Lazy images, third-party CDN restrictions, protected pages
+and script-dependent layouts may result in missing content. Image
+diagnostics indicate loading problems, not a guarantee that every
+resource was embedded.
+
+## Building on Windows
+
+Requires Windows 10/11 x64, .NET 10 SDK to build, and Microsoft
+Edge WebView2 Runtime (typically already installed).
+
+Run from the repo root:
 
     dotnet run --project windows/GameTwinGuideLibrary/GameTwinGuideLibrary.csproj
 
-Or create a portable, self-contained Windows release folder:
+Build a self-contained win-x64 release:
 
     dotnet publish windows/GameTwinGuideLibrary/GameTwinGuideLibrary.csproj -c Release -r win-x64 --self-contained true -o artifacts/GameTwinGuideLibrary
 
-Run artifacts/GameTwinGuideLibrary/GameTwinGuideLibrary.exe. The WebView2 runtime is still required. You can also download the Windows build artifact from a successful GitHub Actions workflow run.
+Run artifacts/GameTwinGuideLibrary/GameTwinGuideLibrary.exe, or
+download GameTwinGuideLibrary-win-x64 from a successful GitHub Actions
+run for this branch.
 
 ## Tests
-
-The smoke tests verify that all catalogs load, that record counts and original URLs are correct, matching and searching work, and the game-name store persists:
 
     python windows/tools/generate_series_catalog.py --check
     dotnet run --project windows/GameTwinGuideLibrary.SmokeTests/GameTwinGuideLibrary.SmokeTests.csproj
 
-The desktop interface itself and live third-party website behavior require Windows/WebView2 and are not covered by these tests.
+Smoke tests cover catalog totals, game matching, representative
+IGN Next.js navigation parsing, deduplication, malicious-domain and
+path rejection, and local manifest and MHTML persistence.
+Windows GitHub Actions also compiles WPF/WebView2 and publishes a build.
 
-## Layout
+**Live IGN archiving and offline image completeness must still be
+tested on Windows against real source pages.**
 
-- GameTwinGuideLibrary — WPF desktop UI and embedded WebView2 browser.
-- GameTwinGuideLibrary.Core — dependency-free .NET catalog loader, search, matching, and game-list store.
-- GameTwinGuideLibrary.SmokeTests — cross-platform catalog integrity checks.
-- tools/generate_series_catalog.py — deterministic export of curated Kotlin links.
+## Project structure
 
-The Android app under app/ is unchanged.
+- GameTwinGuideLibrary: WPF browser, IGN sidebar page selector, image
+  preloading and MHTML batch archiver.
+- GameTwinGuideLibrary.Core: resource catalogs, IGN directory parser,
+  local MHTML archive manifest and saved game-name store.
+- GameTwinGuideLibrary.SmokeTests: portable fixture-based tests.
+- tools/generate_series_catalog.py: export the curated Kotlin guide URLs.
 
-## Licensing and source attribution
+## Boundaries
 
-This remains a fork of an open-source GPL-3.0-or-later project. The Windows program uses new Game Guide Library branding and no reserved Game Twin logos or edition artwork. Every entry is attributed to its original site and linked back there. Guide contents and images remain the property of their rights holders; this frontend does not redistribute copies.
+- Only IGN wiki pages can be archived; other guide sources are browse-only.
+- This visits listed sidebar articles, not every URL in the IGN domain.
+- A publisher may deny pages, require consent, rate-limit, or change formats.
+- Start with one section before attempting hundreds of pages.
+- No background crawling, game integrations or cloud sync.
+- Existing GPL-3.0-or-later source licensing and third-party copyright apply;
+  check IGN's terms and do not redistribute archives without permission.
