@@ -9,6 +9,7 @@ namespace GameTwinGuideLibrary.Core;
 public sealed class CatalogService
 {
     private readonly List<GuideResource> _entries = [];
+    private readonly List<(string Name, string Keyword, string Url)> _seriesHubs = [];
     public IReadOnlyList<GuideResource> Entries => _entries;
     public IReadOnlyList<CatalogGroup> Groups { get; }
     public int TotalCount => _entries.Count;
@@ -122,6 +123,10 @@ public sealed class CatalogService
         foreach (var group in doc.RootElement.EnumerateArray())
         {
             var source = Value(group, "name");
+            var keyword = Value(group, "keyword");
+            var hub = Value(group, "hubUrl");
+            if (keyword.Length > 0 && hub.Length > 0)
+                _seriesHubs.Add((source, keyword, hub));
             foreach (var item in group.GetProperty("entries").EnumerateArray())
             {
                 var name = Value(item, "title");
@@ -172,6 +177,19 @@ public sealed class CatalogService
             .ThenBy(match => match.Resource.Source)
             .Select(match => match.Resource)
             .ToArray();
+
+    public IReadOnlyList<SourceShortcut> ShortcutsForGame(string gameName)
+    {
+        var results = SourceShortcuts(gameName).ToList();
+        var normalized = GameNameMatcher.Normalize(gameName);
+        foreach (var series in _seriesHubs)
+        {
+            if (normalized.Contains(GameNameMatcher.Normalize(series.Keyword), StringComparison.Ordinal))
+                results.Insert(0, new SourceShortcut(series.Name,
+                    "Browse the complete " + series.Name + " guide index", series.Url));
+        }
+        return results;
+    }
 
     public static IReadOnlyList<SourceShortcut> SourceShortcuts(string gameName)
     {

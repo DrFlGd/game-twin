@@ -95,7 +95,7 @@ public partial class MainWindow : Window
         if (_catalog is null) return;
         var game = GamesListBox.SelectedItem as string ?? "";
         SelectedGameHeading.Text = game.Length == 0 ? "Choose or add a game" : game;
-        SourceShortcutsList.ItemsSource = CatalogService.SourceShortcuts(game);
+        SourceShortcutsList.ItemsSource = _catalog.ShortcutsForGame(game);
 
         IReadOnlyList<GuideResource> matched = game.Length == 0 ? Array.Empty<GuideResource>() : _catalog.ForGame(game);
         MatchesList.ItemsSource = matched;

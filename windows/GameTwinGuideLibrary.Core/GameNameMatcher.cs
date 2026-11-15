@@ -54,6 +54,10 @@ public static partial class GameNameMatcher
         var exact = requested.SetEquals(candidate);
         if (exact) return 1;
         if (jaccard >= 0.60) return jaccard;
+        // Series guides often omit the franchise prefix in their displayed title,
+        // e.g. "The Legend of Zelda: Ocarina of Time" vs "Ocarina of Time".
+        if (shared >= 2 && shared == candidate.Count && shared / (double)requested.Count >= 0.45)
+            return 0.60;
         if (requested.Count >= 2 && coverage == 1 && shared / (double)candidate.Count >= 0.55)
             return 0.60;
         return 0;

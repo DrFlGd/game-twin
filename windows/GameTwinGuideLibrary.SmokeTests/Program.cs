@@ -20,6 +20,10 @@ Check(catalog.Browse("steam", "Celeste").Any(e => e.Title == "Celeste"), "Search
 Check(catalog.Browse("series", "Metroid Dread").Count == 2, "Browse sees walkthrough and map separately");
 Check(catalog.ForGame("Metroid Dread").Any(e => e.Source == "Omega Metroid"), "Selected-game discovery finds curated series");
 Check(catalog.ForGame("Celeste").Any(e => e.Source == "Steam Community"), "Selected-game discovery finds Steam");
+Check(catalog.ForGame("The Legend of Zelda: Ocarina of Time").Any(e =>
+    e.Source == "Zelda Dungeon" && e.Title == "Ocarina of Time"), "Series guide matches franchise-prefixed game title");
+Check(catalog.ShortcutsForGame("The Legend of Zelda: Ocarina of Time").Any(s =>
+    s.Name == "Zelda Dungeon"), "Franchise-specific hub is offered as shortcut");
 Check(GameNameMatcher.Score("God of War 2", "God of War 3") == 0, "Numbered sequel mismatch rejected");
 Check(GameNameMatcher.IgnSlug("Pokémon: Red") == "pokemon-red", "IGN slug normalizes accents");
 Check(CatalogService.SourceShortcuts("Cyberpunk 2077").Any(s =>
