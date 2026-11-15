@@ -21,6 +21,7 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
+        InitializeIgnUi();
         GamesListBox.ItemsSource = _games;
         BackButton.IsEnabled = false;
         ForwardButton.IsEnabled = false;
@@ -54,6 +55,7 @@ public partial class MainWindow : Window
             await GuideBrowser.EnsureCoreWebView2Async();
             var core = GuideBrowser.CoreWebView2;
             core.Settings.IsStatusBarEnabled = false;
+            InitializeOfflineBrowserEvents();
             core.NavigationStarting += (_, args) =>
             {
                 BrowserStatusText.Text = "Loading " + args.Uri;
@@ -224,6 +226,12 @@ public partial class MainWindow : Window
 
     private void Navigate(string address)
     {
+        if (_archiveBusy)
+        {
+            BrowserStatusText.Text = "Archive in progress. Cancel before navigating elsewhere.";
+            return;
+        }
+        SetOfflineReading(false);
         var value = address.Trim();
         if (!value.Contains("://", StringComparison.Ordinal))
             value = "https://" + value;
@@ -259,17 +267,17 @@ public partial class MainWindow : Window
 
     private void Back_Click(object sender, RoutedEventArgs e)
     {
-        if (_browserReady && GuideBrowser.CoreWebView2.CanGoBack) GuideBrowser.CoreWebView2.GoBack();
+        if (!_archiveBusy && _browserReady && GuideBrowser.CoreWebView2.CanGoBack) GuideBrowser.CoreWebView2.GoBack();
     }
 
     private void Forward_Click(object sender, RoutedEventArgs e)
     {
-        if (_browserReady && GuideBrowser.CoreWebView2.CanGoForward) GuideBrowser.CoreWebView2.GoForward();
+        if (!_archiveBusy && _browserReady && GuideBrowser.CoreWebView2.CanGoForward) GuideBrowser.CoreWebView2.GoForward();
     }
 
     private void Reload_Click(object sender, RoutedEventArgs e)
     {
-        if (_browserReady) GuideBrowser.CoreWebView2.Reload();
+        if (!_archiveBusy && _browserReady) GuideBrowser.CoreWebView2.Reload();
     }
 
     private void OpenExternal_Click(object sender, RoutedEventArgs e)

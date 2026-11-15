@@ -191,6 +191,127 @@
                                     Click="OpenSelectedResource_Click" HorizontalAlignment="Stretch"/>
                         </Grid>
                     </TabItem>
+
+                    <!-- IGN navigation is not a recursive crawler: reads the
+                         full __NEXT_DATA__.props.pageProps.page.navigation tree. -->
+                    <TabItem Header="IGN sidebar">
+                        <Grid Margin="12">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Text="IGN WIKI DIRECTORY" FontSize="15" FontWeight="SemiBold"
+                                       Margin="0,8,0,5"/>
+                            <TextBlock x:Name="IgnDirectorySummary" Grid.Row="1"
+                                       Text="Open an IGN wiki, then choose Discover IGN sidebar."
+                                       TextWrapping="Wrap" FontSize="11" Foreground="{StaticResource MutedBrush}"
+                                       Margin="0,0,0,12"/>
+                            <TextBox x:Name="IgnPageSearchBox" Grid.Row="2"
+                                     ToolTip="Filter the IGN sidebar by article title"
+                                     TextChanged="IgnPageSearchBox_TextChanged"
+                                     Margin="0,0,0,8"/>
+                            <ComboBox x:Name="IgnSectionCombo" Grid.Row="3"
+                                      Height="34" Margin="0,0,0,8"
+                                      SelectionChanged="IgnSectionCombo_SelectionChanged"
+                                      Background="{StaticResource PanelAltBrush}"
+                                      Foreground="{StaticResource TextBrush}"/>
+                            <Grid Grid.Row="4" Margin="0,0,0,8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="8"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="8"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Button Content="Select all" Click="IgnSelectAll_Click"
+                                        ToolTip="Select every article from the sidebar"/>
+                                <Button Grid.Column="2" Content="Select visible" Click="IgnSelectVisible_Click"
+                                        ToolTip="Select the filtered articles"/>
+                                <Button Grid.Column="4" Content="Clear" Click="IgnClearSelection_Click"/>
+                            </Grid>
+                            <ListBox x:Name="IgnPagesList" Grid.Row="5"
+                                     MouseDoubleClick="IgnPagesList_DoubleClick">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="1,3">
+                                            <CheckBox IsChecked="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                      Foreground="{StaticResource TextBrush}"
+                                                      VerticalContentAlignment="Center">
+                                                <TextBlock Text="{Binding DisplayTitle}"
+                                                           Foreground="{StaticResource TextBrush}"
+                                                           TextWrapping="Wrap" FontSize="12"/>
+                                            </CheckBox>
+                                            <TextBlock Text="{Binding Section}"
+                                                       Margin="22,2,0,0" FontSize="10"
+                                                       Foreground="{StaticResource MutedBrush}"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <ProgressBar x:Name="IgnArchiveProgress" Grid.Row="6"
+                                         Height="6" Minimum="0" Maximum="1"
+                                         Margin="0,12,0,7"/>
+                            <TextBlock x:Name="IgnArchiveProgressLabel" Grid.Row="7"
+                                       Text="No archive running."
+                                       Foreground="{StaticResource MutedBrush}" FontSize="11"
+                                       TextWrapping="Wrap" Margin="0,0,0,10"/>
+                            <Grid Grid.Row="8">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="8"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Button x:Name="IgnSaveSelectedButton" Content="Archive selected IGN pages"
+                                        Click="IgnSaveSelected_Click" HorizontalAlignment="Stretch"/>
+                                <Button x:Name="IgnCancelButton" Grid.Column="2" Content="Cancel"
+                                        IsEnabled="False" Click="IgnCancel_Click"/>
+                            </Grid>
+                        </Grid>
+                    </TabItem>
+
+                    <TabItem Header="Saved IGN">
+                        <Grid Margin="12">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock x:Name="IgnSavedSummary" FontSize="12" TextWrapping="Wrap"
+                                       Foreground="{StaticResource MutedBrush}"
+                                       Margin="0,8,0,12"/>
+                            <ListBox x:Name="IgnSavedList" Grid.Row="1"
+                                     MouseDoubleClick="IgnSavedList_DoubleClick">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="2,3">
+                                            <TextBlock Text="{Binding Title}" FontSize="13"
+                                                       FontWeight="SemiBold" TextTrimming="CharacterEllipsis"/>
+                                            <TextBlock Text="{Binding Summary}" FontSize="10"
+                                                       Foreground="{StaticResource MutedBrush}"
+                                                       TextWrapping="Wrap"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <WrapPanel Grid.Row="2" Margin="0,12,0,8">
+                                <Button Content="Read offline" Click="IgnReadOffline_Click" Margin="0,0,6,6"/>
+                                <Button Content="Open source" Click="IgnSavedOpenOriginal_Click" Margin="0,0,6,6"/>
+                                <Button Content="Show in folder" Click="IgnShowInFolder_Click" Margin="0,0,6,6"/>
+                                <Button Content="Refresh" Click="IgnRefreshSaved_Click" Margin="0,0,0,6"/>
+                            </WrapPanel>
+                            <TextBlock Grid.Row="3" Text="MHTML files and manifest.json are saved in your Documents folder. Failed pages can be retried by selecting them again in the sidebar."
+                                       FontSize="11" Foreground="{StaticResource MutedBrush}"
+                                       TextWrapping="Wrap"/>
+                        </Grid>
+                    </TabItem>
                 </TabControl>
             </Border>
 
@@ -224,10 +345,19 @@
                         <Button Grid.Column="5" Content="External ↗" Click="OpenExternal_Click"
                                 ToolTip="Open this page in your default browser"/>
                     </Grid>
-                    <TextBlock Grid.Row="1" x:Name="ResourceTitleText"
-                               Text="Choose a source or catalog entry to start browsing."
-                               FontSize="12" Foreground="{StaticResource MutedBrush}"
-                               Margin="8,0,8,9" TextTrimming="CharacterEllipsis"/>
+                    <StackPanel Grid.Row="1" Margin="8,0,8,8">
+                        <TextBlock x:Name="ResourceTitleText"
+                                   Text="Choose a source or catalog entry to start browsing."
+                                   FontSize="12" Foreground="{StaticResource MutedBrush}"
+                                   TextTrimming="CharacterEllipsis" Margin="0,0,0,7"/>
+                        <WrapPanel>
+                            <Button x:Name="IgnSaveCurrentButton" Content="Save IGN page"
+                                    Click="IgnSaveCurrent_Click" Margin="0,0,7,0"/>
+                            <Button x:Name="IgnDiscoverButton" Content="Discover IGN sidebar"
+                                    Click="IgnDiscover_Click" Margin="0,0,7,0"/>
+                            <Button Content="View saved IGN" Click="IgnViewSaved_Click"/>
+                        </WrapPanel>
+                    </StackPanel>
                     <Border Grid.Row="2" Background="White" CornerRadius="3">
                         <wv2:WebView2 x:Name="GuideBrowser"/>
                     </Border>
@@ -245,9 +375,9 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <TextBlock Text="Indexes contain titles and links; pages are opened live from the publishers."
+                <TextBlock Text="IGN: save individual pages or selected sidebar articles locally as MHTML."
                            FontSize="11" Foreground="{StaticResource MutedBrush}" VerticalAlignment="Center"/>
-                <TextBlock Grid.Column="1" Text="Offline archiving: planned for Phase 2"
+                <TextBlock Grid.Column="1" Text="IGN offline archiving: Phases 2–3"
                            FontSize="11" Foreground="{StaticResource AccentBrush}" VerticalAlignment="Center"/>
             </Grid>
         </Border>

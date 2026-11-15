@@ -5,6 +5,7 @@ on:
     branches:
       - main
       - feature/windows-guide-catalog-phase1
+      - feature/windows-ign-archives-phase2-3
     paths:
       - 'windows/**'
       - 'app/src/main/assets/*catalog.json'
