@@ -1,0 +1,341 @@
+[
+  {
+    "name": "Omega Metroid",
+    "keyword": "metroid",
+    "hubUrl": "https://omegametroid.com/",
+    "entries": [
+      {
+        "title": "Metroid Dread",
+        "url": "https://omegametroid.com/metroid-dread-walkthrough/",
+        "mapUrl": "https://omegametroid.com/metroid-dread-walkthrough/map/"
+      },
+      {
+        "title": "Metroid Fusion",
+        "url": "https://omegametroid.com/metroid-fusion-walkthrough/",
+        "mapUrl": "https://omegametroid.com/metroid-fusion-walkthrough/map"
+      },
+      {
+        "title": "Metroid II Return of Samus",
+        "url": "https://omegametroid.com/metroid-ii-return-of-samus-walkthrough/",
+        "mapUrl": "https://omegametroid.com/metroid-return-of-samus-walkthrough-map/"
+      },
+      {
+        "title": "Metroid Prime",
+        "url": "https://omegametroid.com/metroid-prime-walkthrough/",
+        "mapUrl": "https://omegametroid.com/metroid-prime-walkthrough/map/"
+      },
+      {
+        "title": "Metroid Prime 2 Echoes",
+        "url": "https://omegametroid.com/metroid-prime-2-echoes-walkthrough/",
+        "mapUrl": "https://omegametroid.com/metroid-prime-2-echoes-walkthrough/map/"
+      },
+      {
+        "title": "Metroid Prime 3 Corruption",
+        "url": "https://omegametroid.com/metroid-prime-3-corruption-walkthrough/",
+        "mapUrl": "https://omegametroid.com/metroid-prime-3-corruption-walkthrough/map/"
+      },
+      {
+        "title": "Metroid Prime 4 Beyond",
+        "url": "https://omegametroid.com/metroid-prime-4-beyond-walkthrough/",
+        "mapUrl": "https://omegametroid.com/metroid-prime-4-beyond-walkthrough/map/"
+      },
+      {
+        "title": "Metroid Prime Hunters",
+        "url": "https://omegametroid.com/metroid-prime-hunters-walkthrough/",
+        "mapUrl": "https://omegametroid.com/metroid-prime-hunters/map/"
+      },
+      {
+        "title": "Metroid Samus Returns",
+        "url": "https://omegametroid.com/metroid-samus-returns-walkthrough/",
+        "mapUrl": "https://omegametroid.com/metroid-samus-returns-walkthrough/map/"
+      },
+      {
+        "title": "Metroid Zero Mission",
+        "url": "https://omegametroid.com/metroid-zero-mission-walkthrough/",
+        "mapUrl": "https://omegametroid.com/metroid-zero-mission-walkthrough/map/"
+      },
+      {
+        "title": "Super Metroid",
+        "url": "https://omegametroid.com/super-metroid-walkthrough/",
+        "mapUrl": "https://omegametroid.com/super-metroid-walkthrough/map"
+      }
+    ]
+  },
+  {
+    "name": "Zelda Dungeon",
+    "keyword": "zelda",
+    "hubUrl": "https://www.zeldadungeon.net/",
+    "entries": [
+      {
+        "title": "A Link Between Worlds",
+        "url": "https://www.zeldadungeon.net/a-link-between-worlds-walkthrough/"
+      },
+      {
+        "title": "A Link to the Past",
+        "url": "https://www.zeldadungeon.net/a-link-to-the-past-walkthrough/"
+      },
+      {
+        "title": "Breath of the Wild",
+        "url": "https://www.zeldadungeon.net/breath-of-the-wild-walkthrough/"
+      },
+      {
+        "title": "Echoes of Wisdom",
+        "url": "https://www.zeldadungeon.net/echoes-of-wisdom-walkthrough-guide/"
+      },
+      {
+        "title": "Four Swords Adventures",
+        "url": "https://www.zeldadungeon.net/four-swords-adventures-walkthrough/"
+      },
+      {
+        "title": "Link the Faces of Evil",
+        "url": "https://www.zeldadungeon.net/link-the-faces-of-evil-walkthrough/"
+      },
+      {
+        "title": "Link's Awakening",
+        "url": "https://www.zeldadungeon.net/links-awakening-walkthrough/"
+      },
+      {
+        "title": "Majora's Mask",
+        "url": "https://www.zeldadungeon.net/majoras-mask-walkthrough/"
+      },
+      {
+        "title": "Ocarina of Time",
+        "url": "https://www.zeldadungeon.net/ocarina-of-time-walkthrough/"
+      },
+      {
+        "title": "Oracle of Ages",
+        "url": "https://www.zeldadungeon.net/oracle-of-ages-walkthrough/"
+      },
+      {
+        "title": "Oracle of Seasons",
+        "url": "https://www.zeldadungeon.net/oracle-of-seasons-walkthrough/"
+      },
+      {
+        "title": "Phantom Hourglass",
+        "url": "https://www.zeldadungeon.net/phantom-hourglass-walkthrough/"
+      },
+      {
+        "title": "Skyward Sword",
+        "url": "https://www.zeldadungeon.net/skyward-sword-walkthrough/"
+      },
+      {
+        "title": "Spirit Tracks",
+        "url": "https://www.zeldadungeon.net/spirit-tracks-walkthrough/"
+      },
+      {
+        "title": "Tears of the Kingdom",
+        "url": "https://www.zeldadungeon.net/tears-of-the-kingdom-walkthrough/"
+      },
+      {
+        "title": "The Adventure of Link",
+        "url": "https://www.zeldadungeon.net/the-adventure-of-link-walkthrough/"
+      },
+      {
+        "title": "The Legend of Zelda",
+        "url": "https://www.zeldadungeon.net/the-legend-of-zelda-walkthrough/"
+      },
+      {
+        "title": "The Minish Cap",
+        "url": "https://www.zeldadungeon.net/the-minish-cap-walkthrough/"
+      },
+      {
+        "title": "The Wind Waker",
+        "url": "https://www.zeldadungeon.net/the-wind-waker-walkthrough/"
+      },
+      {
+        "title": "Tri Force Heroes",
+        "url": "https://www.zeldadungeon.net/tri-force-heroes-walkthrough/"
+      },
+      {
+        "title": "Twilight Princess",
+        "url": "https://www.zeldadungeon.net/twilight-princess-walkthrough/"
+      },
+      {
+        "title": "Zelda the Wand of Gamelon",
+        "url": "https://www.zeldadungeon.net/zelda-the-wand-of-gamelon-walkthrough/"
+      }
+    ]
+  },
+  {
+    "name": "Bulbapedia",
+    "keyword": "pokemon",
+    "hubUrl": "https://bulbapedia.bulbagarden.net/wiki/Browse:Walkthroughs",
+    "entries": [
+      {
+        "title": "Pokemon Red and Blue",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Red_and_Blue"
+      },
+      {
+        "title": "Pokemon Yellow",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Yellow"
+      },
+      {
+        "title": "Pokemon Gold and Silver",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Gold_and_Silver"
+      },
+      {
+        "title": "Pokemon Crystal",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Crystal"
+      },
+      {
+        "title": "Pokemon Ruby and Sapphire",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Ruby_and_Sapphire"
+      },
+      {
+        "title": "Pokemon Emerald",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Emerald"
+      },
+      {
+        "title": "Pokemon FireRed and LeafGreen",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_FireRed_and_LeafGreen"
+      },
+      {
+        "title": "Pokemon Diamond and Pearl",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Diamond_and_Pearl"
+      },
+      {
+        "title": "Pokemon Platinum",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Platinum"
+      },
+      {
+        "title": "Pokemon HeartGold and SoulSilver",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_HeartGold_and_SoulSilver"
+      },
+      {
+        "title": "Pokemon Black and White",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Black_and_White"
+      },
+      {
+        "title": "Pokemon Black 2 and White 2",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Black_2_and_White_2"
+      },
+      {
+        "title": "Pokemon X and Y",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_X_and_Y"
+      },
+      {
+        "title": "Pokemon Omega Ruby and Alpha Sapphire",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Omega_Ruby_and_Alpha_Sapphire"
+      },
+      {
+        "title": "Pokemon Sun and Moon",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Sun_and_Moon"
+      },
+      {
+        "title": "Pokemon Ultra Sun and Ultra Moon",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Ultra_Sun_and_Ultra_Moon"
+      },
+      {
+        "title": "Pokemon Let's Go Pikachu and Let's Go Eevee",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon:_Let%27s_Go,_Pikachu!_and_Let%27s_Go,_Eevee!"
+      },
+      {
+        "title": "Pokemon Sword and Shield",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Sword_and_Shield"
+      },
+      {
+        "title": "Pokemon Brilliant Diamond and Shining Pearl",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Brilliant_Diamond_and_Shining_Pearl"
+      },
+      {
+        "title": "Pokemon Legends Arceus",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Arceus"
+      },
+      {
+        "title": "Pokemon Scarlet and Violet",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Scarlet_and_Violet"
+      },
+      {
+        "title": "Pokemon Legends Z-A",
+        "url": "https://bulbapedia.bulbagarden.net/wiki/Walkthrough:Pok%C3%A9mon_Legends:_Z-A"
+      }
+    ]
+  },
+  {
+    "name": "Fire Emblem WoD",
+    "keyword": "fire emblem",
+    "hubUrl": "https://www.fireemblemwod.com/english.htm",
+    "entries": [
+      {
+        "title": "Fire Emblem: Shadow Dragon and the Blade of Light",
+        "url": "https://www.fireemblemwod.com/ENG_fe1.htm"
+      },
+      {
+        "title": "Fire Emblem Gaiden",
+        "url": "https://www.fireemblemwod.com/ENG_fe2.htm"
+      },
+      {
+        "title": "Fire Emblem: Monshou no Nazo",
+        "url": "https://www.fireemblemwod.com/ENG_fe3.htm"
+      },
+      {
+        "title": "Fire Emblem: Seisen no Keifu",
+        "url": "https://www.fireemblemwod.com/ENG_fe4.htm"
+      },
+      {
+        "title": "Fire Emblem: Thracia 776",
+        "url": "https://www.fireemblemwod.com/ENG_fe5.htm"
+      },
+      {
+        "title": "Fire Emblem: Fuuin no Tsurugi",
+        "url": "https://www.fireemblemwod.com/ENG_fe6.htm"
+      },
+      {
+        "title": "Fire Emblem: The Blazing Blade",
+        "url": "https://www.fireemblemwod.com/ENG_fe7.htm"
+      },
+      {
+        "title": "Fire Emblem: The Sacred Stones",
+        "url": "https://www.fireemblemwod.com/ENG_fe8.htm"
+      },
+      {
+        "title": "Fire Emblem: Path of Radiance",
+        "url": "https://www.fireemblemwod.com/ENG_fe9.htm"
+      },
+      {
+        "title": "Fire Emblem: Radiant Dawn",
+        "url": "https://www.fireemblemwod.com/ENG_fe10.htm"
+      },
+      {
+        "title": "Fire Emblem: Shadow Dragon",
+        "url": "https://www.fireemblemwod.com/ENG_fe11.htm"
+      },
+      {
+        "title": "Fire Emblem: New Mystery of the Emblem",
+        "url": "https://www.fireemblemwod.com/ENG_fe12.htm"
+      },
+      {
+        "title": "Fire Emblem Awakening",
+        "url": "https://www.fireemblemwod.com/ENG_fe13.htm"
+      },
+      {
+        "title": "Fire Emblem Fates",
+        "url": "https://www.fireemblemwod.com/ENG_fe14.htm"
+      },
+      {
+        "title": "Fire Emblem Echoes: Shadows of Valentia",
+        "url": "https://www.fireemblemwod.com/ENG_fe15.htm"
+      },
+      {
+        "title": "Fire Emblem: Mystery of the Emblem",
+        "url": "https://www.fireemblemwod.com/ENG_fe3.htm"
+      },
+      {
+        "title": "Fire Emblem: Monsho no Nazo",
+        "url": "https://www.fireemblemwod.com/ENG_fe3.htm"
+      },
+      {
+        "title": "Fire Emblem: Genealogy of the Holy War",
+        "url": "https://www.fireemblemwod.com/ENG_fe4.htm"
+      },
+      {
+        "title": "Fire Emblem: Binding Blade",
+        "url": "https://www.fireemblemwod.com/ENG_fe6.htm"
+      },
+      {
+        "title": "BS Fire Emblem: Akaneia Senkihen",
+        "url": "https://www.fireemblemwod.com/ENG_bsfe.htm"
+      }
+    ]
+  }
+]
