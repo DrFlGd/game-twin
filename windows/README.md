@@ -39,7 +39,7 @@ A catalog record is not a guarantee that the publisher's URL remains live. IGN l
 
 Requirements:
 - Windows 10/11 x64.
-- .NET 8 SDK (for building); .NET 8 Desktop Runtime if running a framework-dependent build.
+- .NET 10 SDK (for building); .NET 10 Desktop Runtime if running a framework-dependent build.
 - Microsoft Edge WebView2 Runtime (usually installed on supported Windows systems).
 
 From the repository root:
