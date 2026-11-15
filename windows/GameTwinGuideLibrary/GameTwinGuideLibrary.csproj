@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>GameTwinGuideLibrary</AssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../GameTwinGuideLibrary.Core/GameTwinGuideLibrary.Core.csproj" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+  </ItemGroup>
+  <!-- Reuse upstream catalogs in place: their text is an index, not third-party guide content. -->
+  <ItemGroup>
+    <Content Include="../../app/src/main/assets/gamefaqs_catalog.json" Link="Catalogs/gamefaqs_catalog.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../app/src/main/assets/strategywiki_catalog.json" Link="Catalogs/strategywiki_catalog.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../app/src/main/assets/steam_guides_catalog.json" Link="Catalogs/steam_guides_catalog.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../app/src/main/assets/vgmaps_catalog.json" Link="Catalogs/vgmaps_catalog.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../../app/src/main/assets/code_wheels.json" Link="Catalogs/code_wheels.json" CopyToOutputDirectory="PreserveNewest" />
+    <Content Include="../GameTwinGuideLibrary.Core/Catalogs/series_catalog.json" Link="Catalogs/series_catalog.json" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
+</Project>

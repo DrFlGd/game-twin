@@ -1,0 +1,45 @@
+name: Windows Guide Library
+
+on:
+  push:
+    branches:
+      - main
+      - feature/windows-guide-catalog-phase1
+    paths:
+      - 'windows/**'
+      - 'app/src/main/assets/*catalog.json'
+      - 'app/src/main/assets/code_wheels.json'
+      - 'app/src/main/java/com/twinlore/app/data/GuideSeriesCatalog.kt'
+      - '.github/workflows/windows-guide-library.yml'
+  pull_request:
+    paths:
+      - 'windows/**'
+      - 'app/src/main/assets/*catalog.json'
+      - 'app/src/main/assets/code_wheels.json'
+      - 'app/src/main/java/com/twinlore/app/data/GuideSeriesCatalog.kt'
+  workflow_dispatch:
+
+jobs:
+  build-and-smoke-test:
+    runs-on: windows-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+      - name: Validate curated series export
+        run: python windows/tools/generate_series_catalog.py --check
+      - name: Test catalog indexing and matching
+        run: dotnet run --configuration Release --project windows/GameTwinGuideLibrary.SmokeTests/GameTwinGuideLibrary.SmokeTests.csproj
+      - name: Build Windows frontend
+        run: dotnet build windows/GameTwinGuideLibrary/GameTwinGuideLibrary.csproj --configuration Release
+      - name: Publish portable Windows application
+        run: dotnet publish windows/GameTwinGuideLibrary/GameTwinGuideLibrary.csproj --configuration Release --runtime win-x64 --self-contained true --output artifacts/GameTwinGuideLibrary
+      - name: Upload Windows build
+        uses: actions/upload-artifact@v4
+        with:
+          name: GameTwinGuideLibrary-win-x64
+          path: artifacts/GameTwinGuideLibrary/
+          if-no-files-found: error
