@@ -1,4 +1,4 @@
-# Game Guide Library for Windows — Phase 1 + IGN Phases 2–3
+# Game Guide Library for Windows — Phase 1 + IGN archiving and reader
 
 A standalone Windows guide browser and local archive application. The Android project is unchanged.
 
@@ -18,7 +18,7 @@ The Android catalogs contain only **titles and links, not guide content**.
 1. Open an IGN wiki page in the built-in browser, for example https://www.ign.com/wikis/cyberpunk-2077.
 2. Complete any normal publisher consent flow if it appears.
 3. Choose **Save IGN page** above the browser.
-4. Open the **Saved IGN** tab and choose **Read offline**.
+4. Open **Saved IGN → Read offline** (clean reader mode is now the default).
 
 The app scrolls to trigger lazy image loading, waits for image completion,
 and uses Chromium DevTools Page.captureSnapshot to create one MHTML
@@ -53,6 +53,34 @@ other saved IGN articles redirect to their local MHTML copies; unsaved
 links are blocked. Use Open source to return online. Standalone MHTML
 files can always be inspected with Show in folder.
 
+## IGN reading mode and clean export
+
+With a saved IGN archive open, **Reader: On** displays only the guide article,
+title and byline. Its logic is adapted from the original Game Twin IGN
+ReadingModeFilters.kt: it keeps .wiki-html and [data-cy=page-header], hides
+the site header, wiki sidebar, ad wrappers, embeds, breadcrumb and share
+controls, and expands the article for a centered reading experience.
+
+Choose **Reader: Off** to restore the original IGN layout without changing
+any archived file. The filter changes only the viewer's live DOM. The
+original MHTML remains byte-for-byte unchanged. Offline webpage scripts
+are disabled and HTTP(S) requests remain blocked; only the host-injected
+display script runs. If the article element is absent, the view is left
+unchanged instead of hiding the page.
+
+**Export clean MHTML** creates a *separate* .reader.mhtml file. It clones
+the article and page header, removes site chrome, scripts, ads and embeds
+from a temporary DOM, includes source attribution, and asks Chromium to
+recapture the cleaned page as standalone MHTML with whatever resources
+are available from the original archive. The original .mhtml is never
+overwritten, and the viewer is reloaded after export.
+
+Clean export is MHTML, **not an HTML+assets-folder conversion**. Images
+or styles missing from the original capture cannot be reconstructed.
+Test representative offline articles before a large export.
+
+Implementation: windows/GameTwinGuideLibrary/Resources/ign_reader.js.
+After IGN site changes, the selectors may need updates.
 ## Storage
 
 Default archive location:
@@ -94,7 +122,7 @@ run for this branch.
 Smoke tests cover catalog totals, game matching, representative
 IGN Next.js navigation parsing, deduplication, malicious-domain and
 path rejection, and local manifest and MHTML persistence.
-Windows GitHub Actions also compiles WPF/WebView2 and publishes a build.
+Windows CI checks reader JavaScript syntax, compiles WPF/WebView2 and publishes a build.
 
 **Live IGN archiving and offline image completeness must still be
 tested on Windows against real source pages.**

@@ -6,6 +6,7 @@ on:
       - main
       - feature/windows-guide-catalog-phase1
       - feature/windows-ign-archives-phase2-3
+      - feature/windows-ign-reader-cleanup
     paths:
       - 'windows/**'
       - 'app/src/main/assets/*catalog.json'
@@ -32,6 +33,8 @@ jobs:
           dotnet-version: '10.0.x'
       - name: Validate curated series export
         run: python windows/tools/generate_series_catalog.py --check
+      - name: Validate IGN reader JavaScript
+        run: node --check windows/GameTwinGuideLibrary/Resources/ign_reader.js
       - name: Test catalog indexing and matching
         run: dotnet run --configuration Release --project windows/GameTwinGuideLibrary.SmokeTests/GameTwinGuideLibrary.SmokeTests.csproj
       - name: Build Windows frontend

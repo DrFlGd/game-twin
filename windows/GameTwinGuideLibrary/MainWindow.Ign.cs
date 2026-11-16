@@ -52,6 +52,7 @@ public partial class MainWindow
     {
         var core = GuideBrowser.CoreWebView2;
         core.NavigationStarting += HandleOfflineNavigationStarting;
+        InitializeIgnReaderEvents();
         core.AddWebResourceRequestedFilter("*", CoreWebView2WebResourceContext.All);
         core.WebResourceRequested += (_, args) =>
         {
@@ -81,7 +82,11 @@ public partial class MainWindow
             {
                 args.Cancel = true;
                 BrowserStatusText.Text = "Blocked navigation outside saved IGN archives.";
+                return;
             }
+            _currentOfflinePage = _ignStore.ListPages().FirstOrDefault(page =>
+                Path.GetFullPath(page.FullPath).Equals(fullPath, StringComparison.OrdinalIgnoreCase));
+            UpdateIgnReaderControls();
             return;
         }
 
@@ -91,6 +96,9 @@ public partial class MainWindow
             var file = _ignStore.FindSavedFile(uri.GetLeftPart(UriPartial.Path));
             if (file is not null)
             {
+                _currentOfflinePage = _ignStore.ListPages().FirstOrDefault(p =>
+                    Path.GetFullPath(p.FullPath).Equals(Path.GetFullPath(file), StringComparison.OrdinalIgnoreCase));
+                UpdateIgnReaderControls();
                 var archiveUrl = new Uri(file).AbsoluteUri;
                 Dispatcher.BeginInvoke(() => GuideBrowser.CoreWebView2.Navigate(archiveUrl));
                 return;
@@ -103,8 +111,14 @@ public partial class MainWindow
     private void SetOfflineReading(bool enabled)
     {
         _offlineReading = enabled;
+        if (!enabled)
+        {
+            _currentOfflinePage = null;
+            _ignReaderEnabled = true;
+        }
         if (GuideBrowser.CoreWebView2 is not null)
             GuideBrowser.CoreWebView2.Settings.IsScriptEnabled = !enabled;
+        UpdateIgnReaderControls();
     }
 
     private async void IgnDiscover_Click(object sender, RoutedEventArgs e)
@@ -403,6 +417,7 @@ public partial class MainWindow
             ShowIgnMessage("Archive missing on disk. Refresh the saved list.");
             return;
         }
+        _currentOfflinePage = selected;
         SetOfflineReading(true);
         ResourceTitleText.Text = $"OFFLINE · IGN · {selected.Page.WikiTitle} · {selected.Title}";
         GuideBrowser.CoreWebView2.Navigate(new Uri(selected.FullPath).AbsoluteUri);

@@ -307,7 +307,7 @@
                                 <Button Content="Show in folder" Click="IgnShowInFolder_Click" Margin="0,0,6,6"/>
                                 <Button Content="Refresh" Click="IgnRefreshSaved_Click" Margin="0,0,0,6"/>
                             </WrapPanel>
-                            <TextBlock Grid.Row="3" Text="MHTML files and manifest.json are saved in your Documents folder. Failed pages can be retried by selecting them again in the sidebar."
+                            <TextBlock Grid.Row="3" Text="Read offline opens the cleaned guide view by default. Use Reader: On/Off above the browser to switch layouts, or export a separate clean MHTML. Original archives remain unchanged. Failed pages can be retried."
                                        FontSize="11" Foreground="{StaticResource MutedBrush}"
                                        TextWrapping="Wrap"/>
                         </Grid>
@@ -355,7 +355,13 @@
                                     Click="IgnSaveCurrent_Click" Margin="0,0,7,0"/>
                             <Button x:Name="IgnDiscoverButton" Content="Discover IGN sidebar"
                                     Click="IgnDiscover_Click" Margin="0,0,7,0"/>
-                            <Button Content="View saved IGN" Click="IgnViewSaved_Click"/>
+                            <Button Content="View saved IGN" Click="IgnViewSaved_Click" Margin="0,0,8,0"/>
+                            <Button x:Name="IgnReaderToggleButton" Content="Reader: On"
+                                    IsEnabled="False" Click="IgnReaderToggle_Click" Margin="0,0,7,0"
+                                    ToolTip="Switch between simplified guide content and the original MHTML layout"/>
+                            <Button x:Name="IgnExportCleanButton" Content="Export clean MHTML"
+                                    IsEnabled="False" Click="IgnExportClean_Click"
+                                    ToolTip="Create a separate standalone reader-only MHTML; preserves the original archive"/>
                         </WrapPanel>
                     </StackPanel>
                     <Border Grid.Row="2" Background="White" CornerRadius="3">
