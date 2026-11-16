@@ -1,3 +1,4 @@
+using System.Text.RegularExpressions;
 using System.Text.Json;
 
 namespace GameTwinGuideLibrary.Core;
@@ -33,9 +34,19 @@ public static class IgnReaderScript
 
         // JSON encoding protects quote/backslash/newline data supplied by an
         // article title or URL from changing the injected JavaScript program.
-        return template
-            .Replace("\"__GG_ACTION__\"", JsonSerializer.Serialize(command), StringComparison.Ordinal)
-            .Replace("__GG_SOURCE_URL__", JsonSerializer.Serialize(sourceUrl ?? ""), StringComparison.Ordinal)
-            .Replace("__GG_ARTICLE_TITLE__", JsonSerializer.Serialize(title ?? ""), StringComparison.Ordinal);
+        var commandJson = JsonSerializer.Serialize(command);
+        var sourceJson = JsonSerializer.Serialize(sourceUrl ?? "");
+        var titleJson = JsonSerializer.Serialize(title ?? "");
+        // One-pass replacement: a title containing a parameter marker is
+        // kept as literal data instead of being substituted a second time.
+        return Regex.Replace(template,
+            "\"__GG_ACTION__\"|__GG_SOURCE_URL__|__GG_ARTICLE_TITLE__",
+            match => match.Value switch
+            {
+                "\"__GG_ACTION__\"" => commandJson,
+                "__GG_SOURCE_URL__" => sourceJson,
+                "__GG_ARTICLE_TITLE__" => titleJson,
+                _ => throw new InvalidOperationException("Unknown reader template marker")
+            });
     }
 }

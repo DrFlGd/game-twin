@@ -150,7 +150,7 @@ foreach (var action in new[] {
     Check(!script.Contains("__GG_ACTION__") &&
           !script.Contains("__GG_SOURCE_URL__") &&
           !script.Contains("__GG_ARTICLE_TITLE__") &&
-          script.Contains("A \\\"test\\\" guide"),
+          script.Contains(System.Text.Json.JsonSerializer.Serialize("A \"test\" guide")),
         "IGN reader: " + action + " script parameters are safely quoted");
 }
 Check(IgnReaderScript.Build(readerTemplate, IgnReaderAction.Apply, null, "")
@@ -171,6 +171,11 @@ try
 }
 catch (ArgumentException) { rejectedExternal = true; }
 Check(rejectedExternal, "IGN reader: source URL validation rejects non-IGN domains");
+var markerLikeTitle = "__GG_SOURCE_URL__ and __GG_ARTICLE_TITLE__";
+var escapedMarkerTitle = IgnReaderScript.Build(readerTemplate, IgnReaderAction.Apply,
+    "https://www.ign.com/wikis/cyberpunk-2077", markerLikeTitle);
+Check(escapedMarkerTitle.Contains(System.Text.Json.JsonSerializer.Serialize(markerLikeTitle)),
+    "IGN reader: template-like article titles remain harmless literal data");
 Check(readerTemplate.Contains("state.modified[i]") &&
       readerTemplate.Contains("delete window[STATE_KEY]"),
     "IGN reader: original inline styles are recoverable without an archive rewrite");
